@@ -5,8 +5,12 @@ import API from './fetchCountries';
 
 const input = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
+countryList.style.listStyle = 'none';
+countryList.style.paddingLeft = '0';
+
+
 const countryInfo = document.querySelector('.country-info');
-countryList.style.listStyle = "none";
+countryInfo.style.listStyle = 'none';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -24,6 +28,8 @@ function onInputText(e) {
 
 function renderCountriesList(countries) {
   countryList.innerHTML = "";
+  countryInfo.innerHTML = '';
+  
   if (countries.length > 10) {
     return Notiflix.Notify.info(
       `"Too many matches found. Please enter a more specific name."`
@@ -32,8 +38,8 @@ function renderCountriesList(countries) {
   const markup = countries
     .map(country => {
         return `<li>
-        <div style="display:flex"><div style="display:block"><img src="${country.flags.svg}" alt="flag" width = 40></div>
-        <h1 style="font-size:20px", "line-height:1.5">${country.name.official}</h1></divstyle=>
+        <div style="display:flex; align-items:center"><div style="display:inline-flex; align-items:center"><img src="${country.flags.svg}" alt="flag" width = 40></div>
+        <h1 class="title"; style="font-size:20px; padding-left:10px", "line-height:1.5">${country.name.official}</h1></divstyle=>
         </li>`;
     })
     .join('');
@@ -41,14 +47,16 @@ function renderCountriesList(countries) {
 
   const markupInfo = countries.map(country => {
     if (countries.length === 1) {
+      const title = document.querySelector('.title');
+      title.style.fontSize = '36px';
        return `<li>
-        <p>Capital: ${country.capital}</p>
+        <p><b>Capital:</b> ${country.capital}</p>
       </li>
       <li>
-        <p>Population: ${country.population}</p>
+        <p><b>Population:</b> ${country.population}</p>
       </li>
       <li>
-        <p>Languages: ${Object.values(country.languages)}</p>
+        <p><b>Languages:</b> ${Object.values(country.languages)}</p>
       </li>`;
     }
   }).join('');
