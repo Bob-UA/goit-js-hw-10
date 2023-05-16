@@ -32,8 +32,8 @@ function renderCountriesList(countries) {
   const markup = countries
     .map(country => {
         return `<li>
-        <div style="display:flex"><img src="${country.flags.svg}" alt="flag" width = 40>
-        <h1 style="font-size:20px", "line-height:1.5">${country.name.official}</h1></div>
+        <div style="display:flex"><div style="display:block"><img src="${country.flags.svg}" alt="flag" width = 40></div>
+        <h1 style="font-size:20px", "line-height:1.5">${country.name.official}</h1></divstyle=>
         </li>`;
     })
     .join('');
