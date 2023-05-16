@@ -31,30 +31,28 @@ function renderCountriesList(countries) {
   }
   const markup = countries
     .map(country => {
-      if (countries.length === 1) {
         return `<li>
-    <div style="display:flex"><img src="${
-      country.flags.svg
-    }" alt="flag" width = 40>
-        <h1>${country.name.official}</h1></div>
-        </li>
-        <li>
-          <p>Capital: ${country.capital}</p>
-        </li>
-        <li>
-          <p>Population: ${country.population}</p>
-        </li>
-        <li>
-          <p>Languages: ${Object.values(country.languages)}</p>
-        </li>`;
-      }
-        return `<li>
-    <div style="display:flex"><img src="${country.flags.svg}" alt="flag" width = 40>
-        <h1>${country.name.official}</h1></div>
+        <div style="display:flex"><img src="${country.flags.svg}" alt="flag" width = 40>
+        <h1 style="font-size:20px", "line-height:1.5">${country.name.official}</h1></div>
         </li>`;
     })
     .join('');
-  countryList.insertAdjacentHTML("beforeend",markup);
+  countryList.insertAdjacentHTML('beforeend', markup);
+
+  const markupInfo = countries.map(country => {
+    if (countries.length === 1) {
+       return `<li>
+        <p>Capital: ${country.capital}</p>
+      </li>
+      <li>
+        <p>Population: ${country.population}</p>
+      </li>
+      <li>
+        <p>Languages: ${Object.values(country.languages)}</p>
+      </li>`;
+    }
+  }).join('');
+   countryInfo.insertAdjacentHTML('beforeend', markupInfo);
 }
 
 input.addEventListener('input', _(onInputText, DEBOUNCE_DELAY));
