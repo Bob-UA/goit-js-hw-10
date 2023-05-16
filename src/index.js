@@ -5,6 +5,8 @@ import API from './fetchCountries';
 
 const input = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
+const countryInfo = document.querySelector('.country-info');
+countryList.style.listStyle = "none";
 
 const DEBOUNCE_DELAY = 300;
 
@@ -13,8 +15,8 @@ function onInputText(e) {
   if (e.target.value.length === 0) {
     return countryList.innerHTML = '';
   }
-  
-  API.fetchCountries(e.target.value)
+
+  API.fetchCountries(e.target.value.trim())
     .then(countries => renderCountriesList(countries))
     .catch(error => console.log(error));
 }
@@ -31,7 +33,9 @@ function renderCountriesList(countries) {
     .map(country => {
       if (countries.length === 1) {
         return `<li>
-    <div><img src="${country.flags.svg}" alt="flag" width = 50/>
+    <div style="display:flex"><img src="${
+      country.flags.svg
+    }" alt="flag" width = 40>
         <h1>${country.name.official}</h1></div>
         </li>
         <li>
@@ -45,11 +49,9 @@ function renderCountriesList(countries) {
         </li>`;
       }
         return `<li>
-    <img src="${country.flags.svg}" alt="flag" width = 50/>
-        </li>
-        <li>
-        <h1>${country.name.official}</h1>
-        </li>`
+    <div style="display:flex"><img src="${country.flags.svg}" alt="flag" width = 40>
+        <h1>${country.name.official}</h1></div>
+        </li>`;
     })
     .join('');
   countryList.insertAdjacentHTML("beforeend",markup);
