@@ -48,7 +48,7 @@ function renderCountriesList(countries) {
   const markupInfo = countries.map(country => {
     if (countries.length === 1) {
       const title = document.querySelector('.title');
-      title.style.fontSize = '36px';
+      title.style.fontSize = '40px';
        return `<li>
         <p><b>Capital:</b> ${country.capital}</p>
       </li>
