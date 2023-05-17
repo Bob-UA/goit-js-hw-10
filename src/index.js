@@ -16,19 +16,23 @@ const DEBOUNCE_DELAY = 300;
 
 
 function onInputText(e) {
-  if (e.target.value.length === 0) {
-    return countryList.innerHTML = '';
+  if (!e.target.value.trim()) {
+    return (inputFieldReset());
   }
 
   API.fetchCountries(e.target.value.trim())
     .then(countries => renderCountriesList(countries))
-    .catch(error => console.log(error));
+    .catch(
+      error => console.log(error), inputFieldReset()
+    );
+}
+function inputFieldReset() {
+  countryList.innerHTML = '';
+  countryInfo.innerHTML = '';
 }
 
-
 function renderCountriesList(countries) {
-  countryList.innerHTML = "";
-  countryInfo.innerHTML = '';
+  inputFieldReset();
   
   if (countries.length > 10) {
     return Notiflix.Notify.info(
